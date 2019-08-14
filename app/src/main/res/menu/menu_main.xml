@@ -1,0 +1,53 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.github.ramonrabello.opencv.kotlin.camera.com.wdy.camera.MainActivity">
+    <item
+        android:id="@+id/action_gray_scale"
+        android:orderInCategory="100"
+        android:title="@string/action_gray_scale"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_gaussian_blur"
+        android:orderInCategory="100"
+        android:title="@string/action_gaussian_blur"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_canny"
+        android:orderInCategory="100"
+        android:title="@string/action_canny"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_rectangle"
+        android:orderInCategory="100"
+        android:title="@string/action_rectangle"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Hist"
+        android:orderInCategory="100"
+        android:title="@string/action_Hist"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_SEPIA"
+        android:orderInCategory="100"
+        android:title="@string/action_SEPIA"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_zoom"
+        android:orderInCategory="100"
+        android:title="@string/action_zoom"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_pixelize"
+        android:orderInCategory="100"
+        android:title="@string/action_pixelize"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_reset"
+        android:orderInCategory="100"
+        android:title="@string/action_reset"
+        app:showAsAction="never" />
+</menu>

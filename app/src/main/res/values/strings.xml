@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">图像处理</string>
+    <string name="action_gray_scale">灰度</string>
+    <string name="action_canny">Canny边缘检测</string>
+    <string name="action_gaussian_blur">高斯滤波</string>
+    <string name="action_rectangle">矩形框</string>
+    <string name="action_Hist">Hist直方图计算</string>
+    <string name="action_SEPIA">色调变换</string>
+    <string name="action_zoom">ZOOM放大镜</string>
+    <string name="action_pixelize">PIXELIZE像素化</string>
+    <string name="action_reset">原图</string>
+    <string name="choose_opencv_algorithms_tip">Select from overflow button some algorithms to be applied on image below.</string>
+</resources>
