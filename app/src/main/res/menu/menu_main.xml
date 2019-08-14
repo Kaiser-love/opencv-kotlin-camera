@@ -44,6 +44,11 @@
         android:orderInCategory="100"
         android:title="@string/action_pixelize"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_set_size"
+        android:orderInCategory="100"
+        android:title="@string/action_set_size"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_reset"

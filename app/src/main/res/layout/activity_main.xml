@@ -22,10 +22,16 @@
     </android.support.design.widget.AppBarLayout>
 
     <!--<include layout="@layout/content_main1" />-->
-    <org.opencv.android.JavaCameraView
-        android:id="@+id/cameraView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        opencv:camera_id="any"
-        opencv:show_fps="true" />  
+    <LinearLayout
+        android:id="@+id/cameraParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<com.wdy.camera.widget.MTCameraView-->
+            <!--android:id="@+id/cameraView"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--opencv:camera_id="any"-->
+            <!--opencv:show_fps="true" />-->
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

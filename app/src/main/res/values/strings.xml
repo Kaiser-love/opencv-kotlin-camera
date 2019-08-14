@@ -8,6 +8,7 @@
     <string name="action_SEPIA">色调变换</string>
     <string name="action_zoom">ZOOM放大镜</string>
     <string name="action_pixelize">PIXELIZE像素化</string>
+    <string name="action_set_size">设置尺寸</string>
     <string name="action_reset">原图</string>
     <string name="choose_opencv_algorithms_tip">Select from overflow button some algorithms to be applied on image below.</string>
 </resources>

@@ -1,15 +1,21 @@
 package com.wdy.camera
 
+import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import com.hjq.permissions.OnPermission
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.wdy.camera.extensions.toBitmap
 import com.wdy.camera.utils.NativeInterface
 import com.wdy.camera.utils.TfLiteUtils
+import com.wdy.camera.widget.MTCameraView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main1.*
 import org.opencv.android.CameraBridgeViewBase
@@ -17,9 +23,12 @@ import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
 import java.util.*
 import org.opencv.core.Mat
+import android.widget.LinearLayout
+import com.wdy.camera.utils.DialogUHelper
+import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2 {
+class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener, DialogInterface.OnClickListener {
 
     //    private val imageBitmap by lazy { (ContextCompat.getDrawable(this, R.drawable.lena) as BitmapDrawable).bitmap }
     private lateinit var mRgba: Mat
@@ -40,10 +49,15 @@ class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListe
     private var pointCache: Array<Point>? = null
     private var mWhilte: Scalar? = null
     private var mSepiaKernel: Mat? = null
+    private var cameraParent: LinearLayout? = null
+    private var myCamera: MTCameraView? = null
+    private var items: ArrayList<String> = ArrayList()
+    private var currentIndex: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        cameraParent = findViewById(R.id.cameraParent)
         TfLiteUtils.getInstances().init(this)
         val that = this
         XXPermissions.with(this)
@@ -51,11 +65,18 @@ class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListe
                 //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES) //支持请求6.0悬浮窗权限8.0请求安装权限
                 .permission(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.CAMERA) //不指定权限则自动获取清单中的危险权限
                 .request(object : OnPermission {
+                    @RequiresApi(Build.VERSION_CODES.N)
                     override fun hasPermission(granted: List<String>, isAll: Boolean) {
-                        cameraView.setCameraIndex(0) // 0:后置 1:前置
-                        cameraView.enableFpsMeter() //显示FPS
-                        cameraView.setCvCameraViewListener(that)
-                        cameraView.enableView()
+                        myCamera = MTCameraView(that, 0)
+                        myCamera?.setCvCameraViewListener(that)
+                        myCamera?.isFocusable = true
+                        myCamera?.setOnTouchListener(that)
+                        myCamera?.enableView()
+                        cameraParent?.addView(myCamera)
+//                        cameraView.setCameraIndex(0) // 0:后置 1:前置
+//                        cameraView.enableFpsMeter() //显示FPS
+//                        cameraView.setCvCameraViewListener(that)
+//                        cameraView.enableView()
                     }
 
                     override fun noPermission(denied: List<String>, quick: Boolean) {
@@ -87,6 +108,10 @@ class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListe
         mSepiaKernel!!.put(1, 0, /* G */0.168, 0.686, 0.349, 0.0)
         mSepiaKernel!!.put(2, 0, /* B */0.131, 0.534, 0.272, 0.0)
         mSepiaKernel!!.put(3, 0, /* A */0.000, 0.000, 0.000, 1.0)
+        // 获取宽高
+        myCamera?.resolutionList?.forEach {
+            items.add("宽:" + it.width + "-高:" + it.height)
+        }
     }
 
     override fun onCameraViewStopped() {
@@ -213,6 +238,21 @@ class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListe
         return mRgba
     }
 
+    override fun onClick(dialog: DialogInterface?, which: Int) {
+        var str = items[which]
+        str = str.replace("宽:", "")
+        str = str.replace("-高:", " ")
+        val width = str.split(" ")[0]
+        val height = str.split(" ")[1]
+        myCamera?.changeCameraSize(width.toInt(), height.toInt())
+        currentIndex = which
+        dialog?.dismiss()
+    }
+
+    override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+        myCamera?.focusOnTouch(p1)
+        return true
+    }
 
     override fun onDestroy() {
         camera_view?.disableView()
@@ -256,6 +296,10 @@ class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListe
                 }
                 R.id.action_pixelize -> {
                     state = 8
+                    true
+                }
+                R.id.action_set_size -> {
+                    DialogUHelper.shopSingleCheckableDialog(this, items.toTypedArray(), currentIndex, this)
                     true
                 }
                 R.id.action_reset -> {
