@@ -3,6 +3,7 @@ package com.wdy.camera
 import android.app.Application
 import android.util.Log
 import com.wdy.camera.utils.NativeInterface
+import io.scanbot.sdk.ScanbotSDKInitializer
 import org.opencv.android.InstallCallbackInterface
 import org.opencv.android.LoaderCallbackInterface
 import org.opencv.android.OpenCVLoader
@@ -13,14 +14,15 @@ class StarterApplication : Application() {
     companion object {
         const val TAG = "StarterApplication"
 
-        init {
-            System.loadLibrary("opencv_java4")
-            System.loadLibrary("native-lib")
-            NativeInterface.getInstance().init()
-        }
+//        init {
+////            System.loadLibrary("opencv_java4")
+//            System.loadLibrary("native-lib")
+//            NativeInterface.getInstance().init()
+//        }
     }
 
     override fun onCreate() {
+        initScanbotSDK()
         super.onCreate()
         initOpenCV()
     }
@@ -47,4 +49,12 @@ class StarterApplication : Application() {
             })
         }
     }
+
+    private fun initScanbotSDK() {
+        ScanbotSDKInitializer()
+                // .license(this, "YOUR_SCANBOT_SDK_LICENSE_KEY")
+                .prepareOCRLanguagesBlobs(true)
+                .initialize(this)
+    }
+
 }

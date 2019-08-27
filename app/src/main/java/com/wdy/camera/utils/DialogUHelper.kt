@@ -3,7 +3,7 @@ package com.wdy.camera.utils
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 
 import com.kongzue.dialog.listener.OnMenuItemClickListener

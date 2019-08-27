@@ -1,3 +1,39 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <!-- demons -->
+    <dimen name="list_item_padding">8dp</dimen>
+    <dimen name="icon16">16dp</dimen>
+    <dimen name="icon20">20dp</dimen>
+    <dimen name="icon24">24dp</dimen>
+    <dimen name="icon40">40dp</dimen>
+    <dimen name="height4">4dp</dimen>
+    <dimen name="height8">8dp</dimen>
+    <dimen name="height12">12dp</dimen>
+    <dimen name="height24">24dp</dimen>
+    <dimen name="height32">32dp</dimen>
+    <dimen name="height40">40dp</dimen>
+    <dimen name="height48">48dp</dimen>
+    <dimen name="height56">56dp</dimen>
+    <dimen name="height72">72dp</dimen>
+    <dimen name="height80">80dp</dimen>
+    <dimen name="height96">96dp</dimen>
+    <dimen name="bar_height">20</dimen>
+    <dimen name="header_height">70dip</dimen>
+    <dimen name="padding4">4dp</dimen>
+    <dimen name="padding8">8dp</dimen>
+    <dimen name="padding12">12dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="padding24">24dp</dimen>
+    <dimen name="padding28">28dp</dimen>
+    <dimen name="padding32">32dp</dimen>
+    <dimen name="padding48">48dp</dimen>
+    <!-- txt size -->
+    <dimen name="t26">26sp</dimen>
+    <dimen name="t22">22sp</dimen>
+    <dimen name="t16">16sp</dimen>
+    <dimen name="t14">14sp</dimen>
+    <dimen name="t13">13sp</dimen>
+    <dimen name="t12">12sp</dimen>
+    <dimen name="t10">10sp</dimen>
 </resources>

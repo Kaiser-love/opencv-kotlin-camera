@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@mipmap/start_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_height="80dp" />
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<TextView-->
+                <!--android:text="会议录"-->
+                <!--android:textColor="@color/white_yellow"-->
+                <!--android:textSize="@dimen/t26"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <!--<TextView-->
+                <!--android:textColor="@color/white_yellow"-->
+                <!--android:text="会议录"-->
+                <!--android:textSize="@dimen/t26"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+        <!--</LinearLayout>-->
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/padding48"
+        android:typeface="normal"
+        android:textStyle="bold"
+
+        android:text="@string/app_name"
+        android:textColor="@color/white_yellow"
+        android:textSize="@dimen/t26"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:background="@color/blue"
+        android:layout_marginTop="@dimen/padding8"
+        android:layout_width="@dimen/height40"
+        android:layout_height="@dimen/height4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding32"
+        android:gravity="center_horizontal"
+        android:singleLine="false"
+        android:text="一个会议用的PPT相机"
+        android:textColor="@color/white_yellow"
+        android:textSize="@dimen/t22" />
+
+
+</LinearLayout>

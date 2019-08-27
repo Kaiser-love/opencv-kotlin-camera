@@ -1,10 +1,10 @@
-package com.wdy.camera
+package com.wdy.camera.activity
 
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -16,19 +16,19 @@ import com.wdy.camera.extensions.toBitmap
 import com.wdy.camera.utils.NativeInterface
 import com.wdy.camera.utils.TfLiteUtils
 import com.wdy.camera.widget.MTCameraView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main1.*
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
 import java.util.*
 import org.opencv.core.Mat
 import android.widget.LinearLayout
+import com.wdy.camera.R
 import com.wdy.camera.utils.DialogUHelper
+import kotlinx.android.synthetic.main.activity_camera.*
 import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener, DialogInterface.OnClickListener {
+class CameraActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener, DialogInterface.OnClickListener {
 
     //    private val imageBitmap by lazy { (ContextCompat.getDrawable(this, R.drawable.lena) as BitmapDrawable).bitmap }
     private lateinit var mRgba: Mat
@@ -53,36 +53,30 @@ class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListe
     private var myCamera: MTCameraView? = null
     private var items: ArrayList<String> = ArrayList()
     private var currentIndex: Int = 0
+
+    init {
+//            System.loadLibrary("opencv_java4")
+        System.loadLibrary("native-lib")
+        NativeInterface.getInstance().init()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_camera)
         setSupportActionBar(toolbar)
         cameraParent = findViewById(R.id.cameraParent)
         TfLiteUtils.getInstances().init(this)
         val that = this
-        XXPermissions.with(this)
-                //.constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
-                //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES) //支持请求6.0悬浮窗权限8.0请求安装权限
-                .permission(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.CAMERA) //不指定权限则自动获取清单中的危险权限
-                .request(object : OnPermission {
-                    @RequiresApi(Build.VERSION_CODES.N)
-                    override fun hasPermission(granted: List<String>, isAll: Boolean) {
-                        myCamera = MTCameraView(that, 0)
-                        myCamera?.setCvCameraViewListener(that)
-                        myCamera?.isFocusable = true
-                        myCamera?.setOnTouchListener(that)
-                        myCamera?.enableView()
-                        cameraParent?.addView(myCamera)
+        myCamera = MTCameraView(that, 0)
+        myCamera?.setCvCameraViewListener(that)
+        myCamera?.isFocusable = true
+        myCamera?.setOnTouchListener(that)
+        myCamera?.enableView()
+        cameraParent?.addView(myCamera)
 //                        cameraView.setCameraIndex(0) // 0:后置 1:前置
 //                        cameraView.enableFpsMeter() //显示FPS
 //                        cameraView.setCvCameraViewListener(that)
 //                        cameraView.enableView()
-                    }
-
-                    override fun noPermission(denied: List<String>, quick: Boolean) {
-
-                    }
-                })
     }
 
     override fun onCameraViewStarted(width: Int, height: Int) {
@@ -255,7 +249,7 @@ class MainActivity : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListe
     }
 
     override fun onDestroy() {
-        camera_view?.disableView()
+        myCamera?.disableView()
         super.onDestroy()
     }
 

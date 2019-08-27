@@ -1,1 +1,1 @@
-include ':app', ':opencv:sdk'
+include ':app', ':opencv:sdk',":ktx"

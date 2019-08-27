@@ -11,4 +11,8 @@
     <string name="action_set_size">设置尺寸</string>
     <string name="action_reset">原图</string>
     <string name="choose_opencv_algorithms_tip">Select from overflow button some algorithms to be applied on image below.</string>
+
+    <!--悬浮按钮-->
+    <string name="fab_camera">会易录</string>
+    <string name="fab_scanbot">文档扫描</string>
 </resources>
